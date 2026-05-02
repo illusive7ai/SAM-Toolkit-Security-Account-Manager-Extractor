@@ -1,0 +1,39 @@
+
+REGISTRY HIVE ANALYSIS REPORT
+=============================
+
+SAM, SYSTEM, and SECURITY files are Windows Registry Hive files.
+They are binary files with the following structure:
+
+SAM (Security Account Manager):
+- Contains user accounts and password hashes
+- Stores user RIDs (Relative Identifiers)
+- Password hashes are encrypted with system key
+
+SYSTEM:
+- Contains system configuration
+- Has the boot key used to encrypt SAM hashes
+- System configuration and control sets
+
+SECURITY:
+- Security policies and privileges
+- User rights assignments
+- Audit policies
+
+FILE FORMAT:
+- Signature: 'regf' (0x66676572)
+- Binary format with complex internal structure
+- Cannot be viewed in text editors
+- Requires specialized tools to parse
+
+TOOLS FOR ANALYSIS:
+1. Registry Editor (regedit.exe) - Load as Hive
+2. Python with winreg/impacket libraries
+3. Professional tools: RegRipper, Parse::Win32Registry
+4. Hex editors for low-level analysis
+
+EDUCATIONAL NOTES:
+- These files are locked by Windows during operation
+- We used 'reg save' command to bypass file locking
+- Password hashes are in NTLM format within SAM
+- SYSTEM file contains the decryption key for SAM
